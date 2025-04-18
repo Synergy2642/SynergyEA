@@ -4,8 +4,8 @@ const bot = new Telegraf(process.env.BOT_TOKEN); // Token set in Railway env var
 const OWNER_ID = process.env.OWNER_ID; // Your Telegram numeric ID
 
 bot.start((ctx) => {
-  ctx.reply(
-    `Welcome to the Synergy EA bot!
+  ctx.reply('Welcome to Synergy EA Bot! Type "🧠 Buy EA" to get started.');
+});
 
 This EA can use a few different strategies hedging, martingale, and grid.
 
