@@ -25,14 +25,18 @@ Choose an option below:`,
 });
 
 bot.hears('ℹ️ Info', (ctx) => {
-  ctx.reply(`Synergy EA is optimized for risk-managed gains using martingale hedging.
+  ctx.reply(`📈 **Synergy PAMM EA**
 
-→ One-Time Purchase: $499
-→ Lifetime Updates: Free
+This is the exact EA I used to reach #1 on the Sway Markets Leaderboard (now Liquid Brokers). It's a high-performance, fully automated trading system built to optimize profits while managing risk through real-time market adaptation.
 
-You will receive the EA file + setup instructions after manual payment confirmation.`);
+✅ Strategies: Hedging, Grid, and Martingale  
+✅ Compatible with all forex pairs  
+✅ Works on MT4 & MT5  
+✅ No VPS required (but recommended)  
+✅ One-Time Purchase: $499
+
+After payment is confirmed, you'll receive the EA file, full setup guide, and direct support to help you get started.`);
 });
-
 bot.hears('🛒 Buy EA', (ctx) => {
   ctx.reply(`To buy, send $499 to one of the following:
 
