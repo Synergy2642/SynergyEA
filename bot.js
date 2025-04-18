@@ -38,11 +38,10 @@ BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
 
 After payment, reply here with a screenshot or transaction ID.`);
 
-  bot.telegram.sendMessage(
-    OWNER_ID,
-    User ${ctx.from.first_name} (@${ctx.from.username || 'no username'}) is interested in buying the EA.
-  );
-});
+ const name = ctx.from.first_name;
+const username = ctx.from.username || 'no username';
+const msg = User ${name} (@${username}) is interested in buying the EA.;
+bot.sendMessage(ctx.chat.id, msg);
 
 bot.on('photo', async (ctx) => {
   ctx.reply('Thanks! Your payment will be reviewed shortly.');
