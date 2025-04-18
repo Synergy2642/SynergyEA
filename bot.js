@@ -47,7 +47,7 @@ bot.on('photo', async (ctx) => {
 
   const file_id = ctx.message.photo[ctx.message.photo.length - 1].file_id;
   await bot.telegram.sendPhoto(OWNER_ID, file_id, {
-    caption: Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || 'no username'}),
+    caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || `no username`})`,
   });
 });
 
