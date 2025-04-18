@@ -3,6 +3,7 @@ const { Telegraf } = require('telegraf');
 const bot = new Telegraf(process.env.BOT_TOKEN); // Token set in Railway env vars
 const OWNER_ID = process.env.OWNER_ID; // Your Telegram numeric ID
 
+// /start command
 bot.start((ctx) => {
   console.log('Received /start command from:', ctx.from.username);
   console.log('Full message context:', ctx.message);
@@ -24,8 +25,8 @@ Choose an option below to learn more or make a purchase.`,
     }
   );
 });
-    {
 
+// ℹ️ Info command
 bot.hears('ℹ️ Info', (ctx) => {
   ctx.reply(`📈 Synergy PAMM EA Overview
 
@@ -41,6 +42,8 @@ This powerful, fully automated system is designed to generate consistent returns
 
 After payment is confirmed, you'll receive the EA file, full setup guide, and direct support to help you get started.`);
 });
+
+// 🛒 Buy EA command
 bot.hears('🛒 Buy EA', (ctx) => {
   ctx.reply(`🧾 To purchase the Synergy EA, please send $499 to one of the following:
 
@@ -57,7 +60,7 @@ BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
   bot.telegram.sendMessage(OWNER_ID, msg);
 });
 
-// ✅ Photo handler should be outside the other handlers
+// Photo upload handler (for payment screenshots)
 bot.on('photo', async (ctx) => {
   ctx.reply('Thanks! Your payment will be reviewed shortly.');
 
@@ -67,7 +70,6 @@ bot.on('photo', async (ctx) => {
   });
 });
 
-// ✅ Start the bot here, once everything is set up
+// Launch the bot
 bot.launch();
 console.log('Bot is running...');
-
