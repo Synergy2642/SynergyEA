@@ -36,11 +36,7 @@ This powerful, fully automated system is designed to generate consistent returns
 ✅ Works with all Forex pairs  
 ✅ MT4 & MT5 Compatible  
 ✅ No VPS required (but recommended)
-
-💰 One-Time Purchase: $499  
-📦 Includes: EA File + Setup Guide + Personal Support
-
-After payment is confirmed, you'll receive the EA file, full setup guide, and direct support to help you get started.`);
+`);
 });
 
 // 🛒 Buy EA command
