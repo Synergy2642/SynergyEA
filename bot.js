@@ -53,3 +53,4 @@ bot.on('photo', async (ctx) => {
 
 bot.launch();
 console.log('Bot is running...');
+});
