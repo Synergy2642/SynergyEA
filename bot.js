@@ -40,11 +40,16 @@ const username = ctx.from.username || 'no username';
 const msg = `User ${name} (@${username}) is interested in buying this EA.`;
 
 bot.telegram.sendMessage(OWNER_ID, msg);
-});
-    caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || `no username`})`,
-  });
-});
 
+// Handle incoming payment screenshot photos
+bot.on('photo', async (ctx) => {
+ctx.reply('Thanks! Your payment will be reviewed shortly.');
+
+const file_id = ctx.message.photo[ctx.message.photo.length - 1].file_id;
+await bot.telegram.sendPhoto(OWNER_ID, file_id, {
+caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || 'no username'})`,
+});
+});
 bot.launch();
 console.log('Bot is running...');
 });
