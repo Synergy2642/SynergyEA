@@ -4,19 +4,24 @@ const bot = new Telegraf(process.env.BOT_TOKEN); // Token set in Railway env var
 const OWNER_ID = process.env.OWNER_ID; // Your Telegram numeric ID
 
 bot.start((ctx) => {
-ctx.reply(`Welcome to the Synergy EA bot!
-});
+  console.log('Received /start command from:', ctx.from.username);
+  console.log('Full message context:', ctx.message);
+
+  ctx.reply(
+    `Welcome to the Synergy EA bot!
 
 This EA can use a few different strategies: hedging, martingale, and grid.
 
 Price: $499 (One-Time)
 
-Choose an option below:`, {
-reply_markup: {
-keyboard: [['🛒 Buy EA', 'ℹ️ Info']],
-resize_keyboard: true,
-}
-});
+Choose an option below:`,
+    {
+      reply_markup: {
+        keyboard: [['🛒 Buy EA', 'ℹ️ Info']],
+        resize_keyboard: true,
+      },
+    }
+  );
 });
 
 bot.hears('ℹ️ Info', (ctx) => {
