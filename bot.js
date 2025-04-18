@@ -27,8 +27,8 @@ ctx.reply(`Synergy EA is optimized for risk-managed gains using martingale hedgi
 You will receive the EA file + setup instructions after manual payment confirmation.`);
 });
 
-bot.hears('🛒 Buy EA', (ctx) => {
-ctx.reply(`To buy, send $99 to one of the following:
+bot.hears('🧠 Buy EA', (ctx) => {
+ctx.reply(`To buy, send $499 to one of the following:
 
 PayPal: apopdeedee@gmail.com
 BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
@@ -38,7 +38,9 @@ After payment, reply here with a screenshot or transaction ID.`);
 const name = ctx.from.first_name;
 const username = ctx.from.username || 'no username';
 const msg = `User ${name} (@${username}) is interested in buying this EA.`;
-bot.telegram.sendMessage(OWNER_ID file_id, {
+
+bot.telegram.sendMessage(OWNER_ID, msg);
+});
     caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || `no username`})`,
   });
 });
