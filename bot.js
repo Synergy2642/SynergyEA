@@ -40,9 +40,8 @@ After payment, reply here with a screenshot or transaction ID.`);
 
  const name = ctx.from.first_name;
 const username = ctx.from.username || 'no username';
-const msg = User ${name} (@${username}) is interested in buying the EA.;
+const msg = `User ${name} (@${username}) is interested in buying this EA.`;
 bot.sendMessage(ctx.chat.id, msg);
-
 bot.on('photo', async (ctx) => {
   ctx.reply('Thanks! Your payment will be reviewed shortly.');
 
