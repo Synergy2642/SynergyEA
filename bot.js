@@ -13,10 +13,16 @@ bot.start((ctx) => {
 
 This is the same EA that helped me reach #1 on the Sway Markets Leaderboard (now Liquid Brokers). It combines hedging, martingale, and grid strategies to adapt in real time to market conditions.
 
+💵 Price: $499 (One-Time Payment)
+✅ Lifetime Updates Included
+
 Choose an option below to learn more or make a purchase.`,
     {
       reply_markup: {
-        keyboard: [['🛒 Buy EA', 'ℹ️ Info']],
+        keyboard: [
+          ['🛒 Buy EA', 'ℹ️ Info'],
+          ['📞 Contact Support']
+        ],
         resize_keyboard: true,
       },
     }
@@ -55,6 +61,25 @@ BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
   const msg = `📢 New buyer interest!\n\nUser ${name} (@${username}) clicked "Buy EA" and may be completing payment.`;
 
   bot.telegram.sendMessage(OWNER_ID, msg);
+});
+
+// 📞 Contact Support command
+bot.hears('📞 Contact Support', (ctx) => {
+  ctx.reply(
+    'Tap the button below to contact support:',
+    {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: '📨 Message Support',
+              url: 'https://t.me/Ash9618' // Replace with your actual Telegram username
+            }
+          ]
+        ]
+      }
+    }
+  );
 });
 
 // Photo upload handler (for payment screenshots)
