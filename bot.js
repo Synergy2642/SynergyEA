@@ -45,8 +45,8 @@ bot.hears('🛒 Buy EA', (ctx) => {
 PayPal: apopdeedee@gmail.com  
 BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
 
-📤 After payment, reply here with a screenshot or transaction ID.  
-📬 Your EA file and setup guide will be sent after manual confirmation.`);
+After payment, reply here with a screenshot or transaction ID.  
+Your EA file and setup guide will be sent after manual confirmation.`);
 
   const name = ctx.from.first_name;
   const username = ctx.from.username || 'no username';
