@@ -35,8 +35,7 @@ This powerful, fully automated system is designed to generate consistent returns
 ✅ Strategies: Hedging, Grid, Martingale  
 ✅ Works with all Forex pairs  
 ✅ MT4 & MT5 Compatible  
-✅ No VPS required (but recommended)
-`);
+✅ No VPS required (but recommended)`);
 });
 
 // 🛒 Buy EA command
