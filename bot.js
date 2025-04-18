@@ -25,13 +25,6 @@ Choose an option below to learn more or make a purchase.`,
   );
 });
     {
-      reply_markup: {
-        keyboard: [['🛒 Buy EA', 'ℹ️ Info']],
-        resize_keyboard: true,
-      },
-    }
-  );
-});
 
 bot.hears('ℹ️ Info', (ctx) => {
   ctx.reply(`📈 Synergy PAMM EA Overview
