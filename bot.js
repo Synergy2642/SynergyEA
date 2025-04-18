@@ -25,7 +25,7 @@ Choose an option below:`,
 });
 
 bot.hears('ℹ️ Info', (ctx) => {
-ctx.reply(`Synergy EA is optimized for risk-managed gains using martingale hedging.
+  ctx.reply(`Synergy EA is optimized for risk-managed gains using martingale hedging.
 
 → One-Time Purchase: $499
 → Lifetime Updates: Free
@@ -33,29 +33,32 @@ ctx.reply(`Synergy EA is optimized for risk-managed gains using martingale hedgi
 You will receive the EA file + setup instructions after manual payment confirmation.`);
 });
 
-bot.hears('🧠 Buy EA', (ctx) => {
-ctx.reply(`To buy, send $499 to one of the following:
+bot.hears('🛒 Buy EA', (ctx) => {
+  ctx.reply(`To buy, send $499 to one of the following:
 
 PayPal: apopdeedee@gmail.com
 BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
 
 After payment, reply here with a screenshot or transaction ID.`);
 
-const name = ctx.from.first_name;
-const username = ctx.from.username || 'no username';
-const msg = `User ${name} (@${username}) is interested in buying this EA.`;
+  const name = ctx.from.first_name;
+  const username = ctx.from.username || 'no username';
+  const msg = `User ${name} (@${username}) is interested in buying this EA.`;
 
-bot.telegram.sendMessage(OWNER_ID, msg);
+  bot.telegram.sendMessage(OWNER_ID, msg);
+});
 
-// Handle incoming payment screenshot photos
+// ✅ Photo handler should be outside the other handlers
 bot.on('photo', async (ctx) => {
-ctx.reply('Thanks! Your payment will be reviewed shortly.');
+  ctx.reply('Thanks! Your payment will be reviewed shortly.');
 
-const file_id = ctx.message.photo[ctx.message.photo.length - 1].file_id;
-await bot.telegram.sendPhoto(OWNER_ID, file_id, {
-caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || 'no username'})`,
+  const file_id = ctx.message.photo[ctx.message.photo.length - 1].file_id;
+  await bot.telegram.sendPhoto(OWNER_ID, file_id, {
+    caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || 'no username'})`,
+  });
 });
-});
+
+// ✅ Start the bot here, once everything is set up
 bot.launch();
 console.log('Bot is running...');
-});
+
