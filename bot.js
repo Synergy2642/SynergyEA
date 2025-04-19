@@ -6,16 +6,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
 });
 
-console.log('🛠 BOT_TOKEN starts with:', process.env.BOT_TOKEN?.slice(0, 10));
-
-(async () => {
-  try {
-    const result = await bot.telegram.deleteWebhook();
-    console.log('✅ Telegram webhook deleted:', result);
-  } catch (err) {
-    console.error('❌ Failed to delete Telegram webhook:', err);
-  }
-})();
 
 const OWNER_ID = process.env.OWNER_ID;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -121,7 +111,6 @@ app.use(bot.webhookCallback('/telegram'));
 
 // Manually define domain to prevent undefined errors
 const domain = process.env.DOMAIN || 'synergyea-production.up.railway.app';
-console.log('🧩 DOMAIN value:', process.env.DOMAIN);
 
 app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
