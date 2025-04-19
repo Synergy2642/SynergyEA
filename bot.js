@@ -1,7 +1,9 @@
 const { Telegraf } = require('telegraf');
+const Stripe = require('stripe');
 
-const bot = new Telegraf(process.env.BOT_TOKEN); // Token set in Railway env vars
-const OWNER_ID = process.env.OWNER_ID; // Your Telegram numeric ID
+const bot = new Telegraf(process.env.BOT_TOKEN); // Set in Railway env vars
+const OWNER_ID = process.env.OWNER_ID; // Telegram numeric ID
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Stripe Secret Key in Railway env vars
 
 // /start command
 bot.start((ctx) => {
@@ -38,18 +40,32 @@ This powerful, fully automated system is designed to generate consistent returns
 ✅ No VPS required (but recommended)`);
 });
 
-// 🛒 Buy EA command
-bot.hears('🛒 Buy EA', (ctx) => {
-  ctx.reply(`To purchase the Synergy EA, please send $1499 to one of the following:
+// 🛒 Buy EA command with Stripe Checkout integration
+bot.hears('🛒 Buy EA', async (ctx) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price: 'price_1234567890abcdef', // Replace with your actual Stripe Price ID
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'https://t.me/YOUR_BOT_USERNAME?start=paid',
+    cancel_url: 'https://t.me/YOUR_BOT_USERNAME?start=cancel',
+    metadata: {
+      telegram_id: ctx.from.id,
+      telegram_username: ctx.from.username,
+    },
+  });
 
-BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
-
-After payment, reply here with a screenshot or transaction ID.  
-Your EA file and setup guide will be sent after manual confirmation.`);
+  ctx.reply(`💳 Click below to complete your payment: ${session.url}`);
 
   const name = ctx.from.first_name;
   const username = ctx.from.username || 'no username';
-  const msg = `📢 New buyer interest!\n\nUser ${name} (@${username}) clicked "Buy EA" and may be completing payment.`;
+  const msg = `📢 New buyer interest!
+
+User ${name} (@${username}) clicked "Buy EA" and is proceeding to Stripe Checkout.`;
 
   bot.telegram.sendMessage(OWNER_ID, msg);
 });
@@ -63,7 +79,7 @@ bot.hears('📞 Contact Support', (ctx) => {
         inline_keyboard: [
           [
             {
-              text: '📨 Message Support',
+              text: '📮 Message Support',
               url: 'https://t.me/Ash9618' // Replace with your actual Telegram username
             }
           ]
