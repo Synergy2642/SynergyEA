@@ -110,7 +110,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bot.webhookCallback('/telegram'));
 
 // Manually define domain to prevent undefined errors
-const domain = process.env.DOMAIN || 'synergy-ea-bot-production.up.railway.app';
+const domain = process.env.DOMAIN || 'synergyea-production.up.railway.app';
 
 app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
