@@ -1,4 +1,6 @@
-const { Telegraf } = require('telegraf');
+require('dotenv').config();
+
+$1
 const Stripe = require('stripe');
 const express = require('express');
 
