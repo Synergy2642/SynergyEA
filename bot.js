@@ -1,7 +1,12 @@
 const { Telegraf } = require('telegraf');
 const Stripe = require('stripe');
+const express = require('express');
 
-const bot = new Telegraf(process.env.BOT_TOKEN); // Set in Railway env vars
+const bot = new Telegraf({
+  token: process.env.BOT_TOKEN,
+  telegram: { webhookReply: true }
+});
+
 const OWNER_ID = process.env.OWNER_ID; // Telegram numeric ID
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Stripe Secret Key in Railway env vars
 
@@ -99,7 +104,19 @@ bot.on('photo', async (ctx) => {
   });
 });
 
-// Launch the bot
-bot.launch();
-console.log('Bot is running...');
+// Express Web Server for Webhook
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(bot.webhookCallback('/telegram'));
+bot.telegram.setWebhook(`https://${process.env.RAILWAY_STATIC_URL}/telegram`);
+
+app.get('/', (req, res) => {
+  res.send('Synergy EA Bot is live.');
+});
+
+app.listen(PORT, () => {
+  console.log(`Bot is running on webhook at https://${process.env.RAILWAY_STATIC_URL}/telegram`);
+});
+
 
