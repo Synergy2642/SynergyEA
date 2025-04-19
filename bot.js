@@ -6,6 +6,11 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
 });
 
+let isAppReady = false;
+setTimeout(() => {
+  isAppReady = true;
+}, 3000); // 3-second delay before marking app as ready
+
 const OWNER_ID = process.env.OWNER_ID;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -134,7 +139,11 @@ app.use(bot.webhookCallback('/telegram'));
 
 // Healthcheck root path
 app.get('/', (req, res) => {
-  res.status(200).send('ok');
+  if (isAppReady) {
+    res.status(200).send('ok');
+  } else {
+    res.status(503).send('Service Unavailable');
+  }
 });
 
 // Manually define domain to prevent undefined errors
