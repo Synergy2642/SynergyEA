@@ -7,6 +7,15 @@ const bot = new Telegraf({
   telegram: { webhookReply: true }
 });
 
+(async () => {
+  try {
+    const result = await bot.telegram.deleteWebhook();
+    console.log('✅ Telegram webhook deleted:', result);
+  } catch (err) {
+    console.error('❌ Failed to delete Telegram webhook:', err);
+  }
+})();
+
 const OWNER_ID = process.env.OWNER_ID;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
