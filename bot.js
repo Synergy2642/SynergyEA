@@ -116,12 +116,16 @@ app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
 });
 
-app.listen(PORT, async () => {
-  console.log(`Bot is running on webhook at https://${domain}/telegram`);
-  try {
-    await bot.telegram.setWebhook(`https://${domain}/telegram`);
-    console.log('Webhook successfully set with Telegram');
-  } catch (err) {
-    console.error('Failed to set webhook:', err);
-  }
+app.listen(PORT, () => {
+  console.log(`Server is running at https://${domain}/telegram`);
+
+  // Delay setting webhook slightly to ensure endpoint is ready
+  setTimeout(async () => {
+    try {
+      await bot.telegram.setWebhook(`https://${domain}/telegram`);
+      console.log('✅ Webhook successfully set with Telegram');
+    } catch (err) {
+      console.error('❌ Failed to set webhook:', err);
+    }
+  }, 1500);
 });
