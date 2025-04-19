@@ -7,8 +7,8 @@ const bot = new Telegraf({
   telegram: { webhookReply: true }
 });
 
-const OWNER_ID = process.env.OWNER_ID; // Telegram numeric ID
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Stripe Secret Key in Railway env vars
+const OWNER_ID = process.env.OWNER_ID;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // /start command
 bot.start((ctx) => {
@@ -45,7 +45,7 @@ This powerful, fully automated system is designed to generate consistent returns
 ✅ No VPS required (but recommended)`);
 });
 
-// 🛒 Buy EA command with Stripe Checkout integration
+// 🛒 Buy EA command
 bot.hears('🛒 Buy EA', async (ctx) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -60,11 +60,11 @@ bot.hears('🛒 Buy EA', async (ctx) => {
     cancel_url: 'https://t.me/SynergyEABot?start=cancel',
     metadata: {
       telegram_id: ctx.from.id,
-      telegram_username: ctx.from.username,
+      telegram_username: ctx.from.username || 'no username',
     },
   });
 
-  ctx.reply(`💳 Click below to complete your payment: ${session.url}`);
+  ctx.reply(`💳 Click below to complete your payment:\n${session.url}`);
 
   const name = ctx.from.first_name;
   const username = ctx.from.username || 'no username';
@@ -77,46 +77,46 @@ User ${name} (@${username}) clicked "Buy EA" and is proceeding to Stripe Checkou
 
 // 📞 Contact Support command
 bot.hears('📞 Contact Support', (ctx) => {
-  ctx.reply(
-    'Tap the button below to contact support:',
-    {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: '📮 Message Support',
-              url: 'https://t.me/Ash9618' // Replace with your actual Telegram username
-            }
-          ]
+  ctx.reply('Tap the button below to contact support:', {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: '📮 Message Support',
+            url: 'https://t.me/Ash9618'
+          }
         ]
-      }
+      ]
     }
-  );
+  });
 });
 
-// Photo upload handler (for payment screenshots)
+// Photo upload handler
 bot.on('photo', async (ctx) => {
   ctx.reply('Thanks! Your payment will be reviewed shortly.');
 
   const file_id = ctx.message.photo[ctx.message.photo.length - 1].file_id;
+  const username = ctx.from.username || 'no username';
+
   await bot.telegram.sendPhoto(OWNER_ID, file_id, {
-    caption: `Payment screenshot from ${ctx.from.first_name} (@${ctx.from.username || 'no username'})`,
+    caption: `Payment screenshot from ${ctx.from.first_name} (@${username})`,
   });
 });
 
-// Express Web Server for Webhook
+// Express Web Server
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bot.webhookCallback('/telegram'));
-bot.telegram.setWebhook(`https://${process.env.RAILWAY_STATIC_URL}/telegram`);
+
+// Set webhook using the DOMAIN environment variable
+const domain = process.env.DOMAIN;
+bot.telegram.setWebhook(`https://${domain}/telegram`);
 
 app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
 });
 
 app.listen(PORT, () => {
-  console.log(`Bot is running on webhook at https://${process.env.RAILWAY_STATIC_URL}/telegram`);
+  console.log(`Bot is running on webhook at https://${domain}/telegram`);
 });
-
-
