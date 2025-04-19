@@ -46,13 +46,13 @@ bot.hears('🛒 Buy EA', async (ctx) => {
     payment_method_types: ['card'],
     line_items: [
       {
-        price: 'price_1234567890abcdef', // Replace with your actual Stripe Price ID
+        price: 'price_1RFR6102s2jzDrFzZ08bXyb2',
         quantity: 1,
       },
     ],
     mode: 'payment',
-    success_url: 'https://t.me/YOUR_BOT_USERNAME?start=paid',
-    cancel_url: 'https://t.me/YOUR_BOT_USERNAME?start=cancel',
+    success_url: 'https://t.me/SynergyEABot?start=paid',
+    cancel_url: 'https://t.me/SynergyEABot?start=cancel',
     metadata: {
       telegram_id: ctx.from.id,
       telegram_username: ctx.from.username,
@@ -102,3 +102,4 @@ bot.on('photo', async (ctx) => {
 // Launch the bot
 bot.launch();
 console.log('Bot is running...');
+
