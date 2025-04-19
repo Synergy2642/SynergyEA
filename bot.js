@@ -51,7 +51,7 @@ bot.hears('🛒 Buy EA', async (ctx) => {
     payment_method_types: ['card'],
     line_items: [
       {
-        price: 'price_1RFR6102s2jzDrFzZ08bXyb2',
+        price: 'price_1RFU5RP4CYXjSma7m3WkV93m',
         quantity: 1,
       },
     ],
