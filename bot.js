@@ -6,7 +6,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
 });
 
-
 const OWNER_ID = process.env.OWNER_ID;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -47,24 +46,10 @@ This powerful, fully automated system is designed to generate consistent returns
 
 // 🛒 Buy EA command
 bot.hears('🛒 Buy EA', async (ctx) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price: 'price_1RFU5RP4CYXjSma7m3WkV93m',
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
-    success_url: 'https://t.me/SynergyEABot?start=paid',
-    cancel_url: 'https://t.me/SynergyEABot?start=cancel',
-    metadata: {
-      telegram_id: ctx.from.id,
-      telegram_username: ctx.from.username || 'no username',
-    },
-  });
+  const shortStripeUrl = 'https://buy.stripe.com/4gw8xk1tCgQo73qaEE'; // Short Stripe Payment Link
 
-  ctx.reply(`💳 Click below to complete your payment:\n${session.url}`);
+  ctx.reply(`💳 Click below to complete your payment:
+${shortStripeUrl}`);
 
   const name = ctx.from.first_name;
   const username = ctx.from.username || 'no username';
@@ -109,12 +94,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bot.webhookCallback('/telegram'));
 
+// Healthcheck root path
+app.get('/', (req, res) => {
+  res.status(200).send('ok');
+});
+
 // Manually define domain to prevent undefined errors
 const domain = process.env.DOMAIN || 'synergyea-production.up.railway.app';
-
-app.get('/', (req, res) => {
-  res.send('Synergy EA Bot is live.');
-});
 
 app.listen(PORT, () => {
   console.log(`Server is running at https://${domain}/telegram`);
