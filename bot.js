@@ -1,3 +1,5 @@
+
+
 require('dotenv').config();
 
 $1
@@ -8,10 +10,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
 });
 
-let isAppReady = false;
-setTimeout(() => {
-  isAppReady = true;
-}, 3000); // 3-second delay before marking app as ready
+let isAppReady = true;
 
 const OWNER_ID = process.env.OWNER_ID;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -153,4 +152,3 @@ app.listen(PORT, () => {
     }
   }, 1500);
 });
-
