@@ -40,7 +40,7 @@ This powerful, fully automated system is designed to generate consistent returns
 
 // 🛒 Buy EA command
 bot.hears('🛒 Buy EA', (ctx) => {
-  ctx.reply(`To purchase the Synergy EA, please send $499 to one of the following:
+  ctx.reply(`To purchase the Synergy EA, please send $1499 to one of the following:
 
 PayPal: apopdeedee@gmail.com  
 BTC Wallet: bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
