@@ -46,10 +46,48 @@ This powerful, fully automated system is designed to generate consistent returns
 
 // 🛒 Buy EA command
 bot.hears('🛒 Buy EA', async (ctx) => {
-  const shortStripeUrl = 'https://buy.stripe.com/4gw8xk1tCgQo73qaEE'; // Short Stripe Payment Link
+  ctx.reply('💰 Choose your preferred payment method:', {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: '💳 Pay with Card', callback_data: 'pay_card' },
+          { text: '💰 Pay with Crypto', callback_data: 'pay_crypto' }
+        ]
+      ]
+    }
+  });
+});
 
-  ctx.reply(`💳 Click below to complete your payment:
+bot.action('pay_card', async (ctx) => {
+  const shortStripeUrl = 'https://buy.stripe.com/4gw8xk1tCgQo73qaEE';
+  await ctx.answerCbQuery();
+  await ctx.reply(`💳 Click below to complete your payment:
 ${shortStripeUrl}`);
+
+  const name = ctx.from.first_name;
+  const username = ctx.from.username || 'no username';
+  const msg = `📢 New buyer interest!
+
+User ${name} (@${username}) clicked \"Buy EA\" and is proceeding to Stripe Checkout.`;
+  bot.telegram.sendMessage(OWNER_ID, msg);
+});
+
+bot.action('pay_crypto', async (ctx) => {
+  await ctx.answerCbQuery();
+  await ctx.reply(`🪙 To purchase the Synergy EA with Bitcoin, please send $1499 worth of BTC to the address below:
+
+BTC Wallet:
+➡️ bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
+
+After payment, reply here with a screenshot or TXID for manual confirmation.`);
+
+  const name = ctx.from.first_name;
+  const username = ctx.from.username || 'no username';
+  const msg = `📢 New crypto payment interest!
+
+User ${name} (@${username}) clicked \"Pay with Crypto\" and may be sending BTC.`;
+  bot.telegram.sendMessage(OWNER_ID, msg);
+});
 
   const name = ctx.from.first_name;
   const username = ctx.from.username || 'no username';
