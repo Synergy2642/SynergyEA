@@ -109,8 +109,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bot.webhookCallback('/telegram'));
 
-// Set webhook using the DOMAIN environment variable
-const domain = process.env.DOMAIN;
+// Manually define domain to prevent undefined errors
+const domain = process.env.DOMAIN || 'synergy-ea-bot-production.up.railway.app';
 bot.telegram.setWebhook(`https://${domain}/telegram`);
 
 app.get('/', (req, res) => {
