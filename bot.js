@@ -39,6 +39,9 @@ Choose an option below to learn more or make a purchase.`,
   );
 });
 
+
+
+
 // ℹ️ Info command
 bot.hears('ℹ️ Info', (ctx) => {
   ctx.reply(`📈 Synergy PAMM EA Overview
@@ -88,15 +91,6 @@ After payment, reply here with a screenshot or TXID for manual confirmation.`);
   const msg = `📢 New crypto payment interest!
 
 User ${name} (@${username}) clicked \"Pay with Crypto\" and may be sending BTC.`;
-  bot.telegram.sendMessage(OWNER_ID, msg);
-});
-
-  const name = ctx.from.first_name;
-  const username = ctx.from.username || 'no username';
-  const msg = `📢 New buyer interest!
-
-User ${name} (@${username}) clicked "Buy EA" and is proceeding to Stripe Checkout.`;
-
   bot.telegram.sendMessage(OWNER_ID, msg);
 });
 
@@ -159,3 +153,4 @@ app.listen(PORT, () => {
     }
   }, 1500);
 });
+
