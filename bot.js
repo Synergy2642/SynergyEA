@@ -122,6 +122,7 @@ app.use(bot.webhookCallback('/telegram'));
 
 // Manually define domain to prevent undefined errors
 const domain = process.env.DOMAIN || 'synergyea-production.up.railway.app';
+console.log('🧩 DOMAIN value:', process.env.DOMAIN);
 
 app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
