@@ -1,10 +1,8 @@
-
-
 require('dotenv').config();
 
-$1
 const Stripe = require('stripe');
 const express = require('express');
+const { Telegraf } = require('telegraf');
 
 const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
@@ -38,9 +36,6 @@ Choose an option below to learn more or make a purchase.`,
   );
 });
 
-
-
-
 // ℹ️ Info command
 bot.hears('ℹ️ Info', (ctx) => {
   ctx.reply(`📈 Synergy PAMM EA Overview
@@ -70,10 +65,7 @@ bot.hears('🛒 Buy EA', async (ctx) => {
 bot.action('pay_card', async (ctx) => {
   const shortStripeUrl = 'https://buy.stripe.com/4gw8xk1tCgQo73qaEE';
   await ctx.answerCbQuery();
-  await ctx.reply(`💳 Click below to complete your payment:
-${shortStripeUrl}`);
-
-
+  await ctx.reply(`💳 Click below to complete your payment:\n${shortStripeUrl}`);
 });
 
 bot.action('pay_crypto', async (ctx) => {
@@ -139,7 +131,7 @@ app.get('/', (req, res) => {
 // Manually define domain to prevent undefined errors
 const domain = process.env.DOMAIN || 'synergyea-production.up.railway.app';
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running at https://${domain}/telegram`);
 
   // Delay setting webhook slightly to ensure endpoint is ready
