@@ -7,6 +7,8 @@ const bot = new Telegraf({
   telegram: { webhookReply: true }
 });
 
+console.log('🛠 BOT_TOKEN starts with:', process.env.BOT_TOKEN?.slice(0, 10));
+
 (async () => {
   try {
     const result = await bot.telegram.deleteWebhook();
