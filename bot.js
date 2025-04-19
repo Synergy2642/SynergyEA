@@ -111,12 +111,17 @@ app.use(bot.webhookCallback('/telegram'));
 
 // Manually define domain to prevent undefined errors
 const domain = process.env.DOMAIN || 'synergy-ea-bot-production.up.railway.app';
-bot.telegram.setWebhook(`https://${domain}/telegram`);
 
 app.get('/', (req, res) => {
   res.send('Synergy EA Bot is live.');
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Bot is running on webhook at https://${domain}/telegram`);
+  try {
+    await bot.telegram.setWebhook(`https://${domain}/telegram`);
+    console.log('Webhook successfully set with Telegram');
+  } catch (err) {
+    console.error('Failed to set webhook:', err);
+  }
 });
