@@ -71,12 +71,7 @@ bot.action('pay_card', async (ctx) => {
   await ctx.reply(`💳 Click below to complete your payment:
 ${shortStripeUrl}`);
 
-  const name = ctx.from.first_name;
-  const username = ctx.from.username || 'no username';
-  const msg = `📢 New buyer interest!
 
-User ${name} (@${username}) clicked \"Buy EA\" and is proceeding to Stripe Checkout.`;
-  bot.telegram.sendMessage(OWNER_ID, msg);
 });
 
 bot.action('pay_crypto', async (ctx) => {
