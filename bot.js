@@ -2,8 +2,7 @@ const { Telegraf } = require('telegraf');
 const Stripe = require('stripe');
 const express = require('express');
 
-const bot = new Telegraf({
-  token: process.env.BOT_TOKEN,
+const bot = new Telegraf(process.env.BOT_TOKEN, {
   telegram: { webhookReply: true }
 });
 
