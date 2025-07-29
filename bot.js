@@ -70,7 +70,7 @@ bot.action('pay_card', async (ctx) => {
 
 bot.action('pay_crypto', async (ctx) => {
   await ctx.answerCbQuery();
-  await ctx.reply(`🪙 To purchase the Synergy EA with Bitcoin, please send $497 worth of BTC to the address below:
+  await ctx.reply(`🪙 To purchase the Synergy EA with Bitcoin, please send $499 worth of BTC to the address below:
 
 BTC Wallet:
 ➡️ bc1qeyfpgu7rpwzzmned2txyt59rhkazyhvdgh64xk
